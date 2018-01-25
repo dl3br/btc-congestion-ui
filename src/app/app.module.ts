@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-
 import { AppComponent } from './app.component';
 import { MinFeeService } from './min-fee.service';
+import { BtcUsdService } from './btc-usd.service';
 import { ChartistModule } from 'ng-chartist';
 import { HttpModule } from '@angular/http'
 
@@ -16,7 +15,7 @@ import { HttpModule } from '@angular/http'
     ChartistModule,
     HttpModule,
   ],
-  providers: [MinFeeService],
+  providers: [MinFeeService, BtcUsdService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

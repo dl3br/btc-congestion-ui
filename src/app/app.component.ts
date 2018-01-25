@@ -7,13 +7,13 @@ import {
   MinFeeService,
   MinDiff,
 } from './min-fee.service'
-// import {} from 'lodash'
+import { BtcUsdService } from './btc-usd.service'
 import { Line, IChartistData } from 'chartist'
 import * as ngchart from 'ng-chartist'
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  // styles: [`#values { font-size: 200%; font-family: monospace; }`],
   styleUrls: ['./app.component.css']
 })
 
@@ -22,20 +22,21 @@ export class AppComponent {
   minDiffs: MinDiff[]
   targetBlocks: number[]
   feeRates: number[]
+  btcusd: number
   // type: ngchart.ChartType
   // data: IChartistData
   // options?: any
 
-  constructor(private minFee: MinFeeService) { }
+  constructor(private _minFee: MinFeeService, private _btcusd: BtcUsdService) { }
 
   ngOnInit() {
-    this.minFee.minDiff$
+    this._minFee.minDiff$
       .subscribe(
-      (minDiff) => {
-        this.minDiffs = minDiff
-      },
+      minDiff => { this.minDiffs = minDiff },
       console.error,
     )
+    this._btcusd.btcusd$
+      .subscribe(btcusd => this.btcusd = btcusd)
   }
 
   // ngOnChanges() {

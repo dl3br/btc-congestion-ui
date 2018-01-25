@@ -1,14 +1,18 @@
 <!-- The content below is only a placeholder and can be replaced. -->
 <div class="container" style="text-align:center; margin-top:3em">
     <h1> Bitcoin Congestion Manager </h1>
-    <iframe src="https://media.giphy.com/media/QXARaKq53bqVi/giphy.gif" width="515" height="380" frameBorder="0"></iframe>
+<video controls autoplay loop>
+  <source src="https://media.giphy.com/media/QXARaKq53bqVi/giphy.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
     <table class="table table-hover table-sm">
         <thead>
             <tr>
-                <th>Waiting time (min)</th>
-                <th>Fee rate (sat/B)</th>
-                <th>Savings (sat/B)</th>
-                <th>Depth in the mempool (MB)</th>
+                <th>Waiting time <br/> (min)</th>
+                <th>Fee rate <br/> (sat/B)</th>
+                <th>Savings <br/> (sat/B)</th>
+                <th>1 -> 2<br/> non-segwit <br/> (sat ~ usd)</th>
+                <th>1 -> 2<br/> segwit <br/> (sat ~ usd)</th>
             </tr>
         </thead>
         <tbody>
@@ -16,9 +20,10 @@
                 <td>{{ minDiff.targetBlock * 10 }}</td>
                 <td>{{ round(minDiff.feeRate, 4) }}</td>
                 <td>{{ -round(minDiff.cumDiff, 4) }}</td>
-                <td>{{ round(minDiff.targetBlock * 0.95, 2) }}</td>
+                <td>{{ round(minDiff.feeRate * 256, 0) }} ~ {{round(minDiff.feeRate * 256 * btcusd * 1e-8, 2)}}</td>
+                <td>{{ round(minDiff.feeRate * 165, 0) }} ~ {{round(minDiff.feeRate * 165 * btcusd * 1e-8, 2)}}</td>
             </tr>
         </tbody>
-        <caption>First value is the best deal, if any exists, otherwise it's the next block estimated fee. Last value is the next block estimated minimun fee.</caption>
+        <caption>First row is the best deal. 10 min waiting time is the fee for inclusion in the next block. RBF for transactions with waiting time greater than 30 min.</caption>
     </table>
 </div>
