@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Inconsolata');
 
 body{
-  font-size: 155%;
+  font-size: 135%;
   background-color: #111;
   color: white;
   font-family: "Inconsolata", monospace;
@@ -55,7 +55,12 @@ h1:hover:after{
 }
 
 table tbody tr.cool{
-  color: green;
+  color: white;
+  font-weight: bold;
+}
+
+table tbody tr.notcool{
+  color: #aaa;
 }
 
 video {

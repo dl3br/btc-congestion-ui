@@ -21,6 +21,13 @@ export class MinFeeService {
         .delayWhen(val => Observable.timer(10)))
 }
 
+const addScore = (minDiffs: MinDiff[]) => {
+  const scores = minDiffs
+    .map(x => Math.sqrt(x.diff * x.cumDiff) / x.targetBlock)
+  const maxScore = Math.max(...scores)
+  return scores.map((x, i) => ({ ...minDiffs[i], score: x / maxScore }))
+}
+
 export interface MinDiff {
   targetBlock: number
   feeRate: number
@@ -29,13 +36,4 @@ export interface MinDiff {
   diff: number
   cumDiff: number
   score: number
-}
-
-const addScore = (minDiffs: MinDiff[]) => {
-  const scores = minDiffs
-    .map(x => Math.sqrt(x.diff * x.cumDiff) / x.targetBlock)
-  const maxScore = Math.max(...scores)
-  const out = scores.map((x, i) => ({ ...minDiffs[i], score: x / maxScore }))
-  // console.dir(out.map(x => x.score))
-  return out
 }
