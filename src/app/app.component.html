@@ -1,38 +1,40 @@
 <div class="container-fluid">
-  <h1> Bitcoin Congestion Manager </h1>
+  <h1>Bitcoin Congestion Manager</h1>
   <video autoplay loop muted>
     <source src="https://media.giphy.com/media/QXARaKq53bqVi/giphy.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
-  <table class="table table-hover table-responsive" style=" display:table">
-    <thead>
-      <tr>
-        <th colspan="2">Waiting time <br/></th>
-        <th>Fee rate</th>
-        <th colspan="2">Non-segwit</th>
-        <th colspan="2">Segwit</th>
-      </tr>
-      <tr>
-        <th> minutes</th>
-        <th>probability</th>
-        <th>sat / vB</th>
-        <th>sat</th>
-        <th>usd</th>
-        <th>sat</th>
-        <th>usd</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let minDiff of minDiffs">
-        <td>{{ translate(minDiff.targetBlock).time }}</td>
-        <td>{{ translate(minDiff.targetBlock).probability }}</td>
-        <td>{{ round(minDiff.feeRate, 3) }}</td>
-        <td>{{ round(minDiff.feeRate * twoInOneOutVSize.nonsegwit, 0) }} </td>
-        <td>${{round(minDiff.feeRate * twoInOneOutVSize.nonsegwit * btcusd * 1e-8, 2)}}</td>
-        <td>{{ round(minDiff.feeRate * twoInOneOutVSize.segwit, 0) }} </td>
-        <td>${{round(minDiff.feeRate * twoInOneOutVSize.segwit * btcusd * 1e-8, 2)}}</td>
-      </tr>
-    </tbody>
-    <caption>10 min waiting time is the fee for inclusion in the next block. The different priorities for 10 min indicate at what part of the next block we are targeting: high corresponds to the middle of the next block, mid 3/4 of the next block and low towards the end of next block. Broadcast only RBF transactions for waiting time greater than 20 min. Mempool can change dramatically fast. vB represents virtual bytes. Non-segwit transaction with 1 input and 2 outpus has 226 vB and a segwit transaction has 165 vB.</caption>
-  </table>
+  <div class="table-responsive-md ">
+    <table class="table table-hover table-dark" align="center">
+      <thead>
+        <tr>
+          <th colspan="2">Waiting time <br/></th>
+          <th>Fee rate</th>
+          <th colspan="2">Non-segwit</th>
+          <th colspan="2">Segwit</th>
+        </tr>
+        <tr>
+          <th> minutes</th>
+          <th>probability</th>
+          <th>sat / vB</th>
+          <th>sat</th>
+          <th>usd</th>
+          <th>sat</th>
+          <th>usd</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let minDiff of minDiffs" class="{{-minDiff.cumDiff > 10 ? 'cool' : 'notcool'}}">
+          <td>{{ translate(minDiff.targetBlock).time }}</td>
+          <td>{{ translate(minDiff.targetBlock).probability }}</td>
+          <td>{{ round(minDiff.feeRate, 3) }}</td>
+          <td>{{ round(minDiff.feeRate * twoInOneOutVSize.nonsegwit, 0) }} </td>
+          <td>${{round(minDiff.feeRate * twoInOneOutVSize.nonsegwit * btcusd * 1e-8, 2)}}</td>
+          <td>{{ round(minDiff.feeRate * twoInOneOutVSize.segwit, 0) }} </td>
+          <td>${{round(minDiff.feeRate * twoInOneOutVSize.segwit * btcusd * 1e-8, 2)}}</td>
+        </tr>
+      </tbody>
+      <caption>10 min waiting time is the fee for inclusion in the next block. The different priorities for 10 min indicate at what part of the next block we are targeting: high corresponds to the middle of the next block, mid 3/4 of the next block and low towards the end of next block. Broadcast only RBF transactions for waiting time greater than 20 min. Mempool can change dramatically fast. vB represents virtual bytes. Non-segwit transaction with 1 input and 2 outpus has 226 vB and a segwit transaction has 165 vB.</caption>
+    </table>
+  </div>
 </div>
