@@ -5,6 +5,10 @@
 /*   font-size: 155%; */
 /*   font-family: monospace; */
 /* } */
+.container-fluid {
+  margin:3em;
+  text-align:center;
+}
 video {
   width:100%;
   max-width:500px;
