@@ -55,13 +55,17 @@ export class AppComponent {
 
   translate = (targetBlock: number) => {
     const dictionary = {
-      [0.5]:  '10 (high)',
-      [0.75]: '10  (mid)',
-      [1]:    '10  (low)',
+      [0.5]:  '10 | high',
+      [0.75]: '10 | mid',
+      [1]:    '10 | low',
+      [1.5]:  '20 | high',
+      [1.75]: '20 | mid',
+      [2]:    '20 | low',
     }
-    return targetBlock <= 1 ? dictionary[targetBlock] : (targetBlock * 10).toString()
+    return targetBlock <= 2
+      ? dictionary[targetBlock]
+      : (targetBlock * 10).toString()
   }
-
 
   // ngOnChanges() {
   //   if (this.minDiffs) this.basicChart()

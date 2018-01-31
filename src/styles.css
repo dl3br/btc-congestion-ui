@@ -1,7 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
-body {
-  font-size: 175%;
-  font-family: monospace;
+/* body { */
+/*   font-size: 155%; */
+/*   font-family: monospace; */
+/* } */
+video {
+  width:100%;
+  max-width:500px;
+  height:auto;
 }
