@@ -4,7 +4,6 @@ import { Http } from '@angular/http'
 import { timer } from 'rxjs/observable/timer'
 import { mergeMap } from 'rxjs/operator/mergeMap'
 import { Client } from 'thruway.js'
-const wamp = new Client('wss://api.poloniex.com', 'realm1');
 const url = 'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD'
 const processResponse = (res: any): number => res['USD']
 
@@ -17,7 +16,6 @@ export class BtcUsdService {
     .mergeMap(() => this.http.get(url)
       .map(x => x.json())
       .map(processResponse)
-      // .do(console.log)
     )
 
 }

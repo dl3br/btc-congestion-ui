@@ -2,6 +2,7 @@ import {
   Component,
   OnChanges,
   OnInit,
+  OnDestroy,
 } from '@angular/core';
 import {
   MinFeeService,
@@ -10,6 +11,7 @@ import {
 import { BtcUsdService } from './btc-usd.service'
 import { Line, IChartistData } from 'chartist'
 import * as ngchart from 'ng-chartist'
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-root',
@@ -20,9 +22,13 @@ import * as ngchart from 'ng-chartist'
 
 export class AppComponent {
   minDiffs: MinDiff[]
-  targetBlocks: number[]
-  feeRates: number[]
   btcusd: number
+  minDiffSub: Subscription
+  btcusdSub: Subscription
+  twoInOneOutVSize = {
+    segwit: 165,
+    nonsegwit: 226
+  }
   // type: ngchart.ChartType
   // data: IChartistData
   // options?: any
@@ -30,14 +36,32 @@ export class AppComponent {
   constructor(private _minFee: MinFeeService, private _btcusd: BtcUsdService) { }
 
   ngOnInit() {
-    this._minFee.minDiff$
+    this.minDiffSub = this._minFee.minDiff$
       .subscribe(
       minDiff => { this.minDiffs = minDiff },
-      console.error,
-    )
-    this._btcusd.btcusd$
-      .subscribe(btcusd => this.btcusd = btcusd)
+      console.error
+      )
+    this.btcusdSub = this._btcusd.btcusd$
+      .subscribe(
+      btcusd => { this.btcusd = btcusd },
+      console.error
+      )
   }
+
+  ngOnDestroy() {
+    this.btcusdSub.unsubscribe()
+    this.minDiffSub.unsubscribe()
+  }
+
+  translate = (targetBlock: number) => {
+    const dictionary = {
+      [0.5]:  '10 (high)',
+      [0.75]: '10  (mid)',
+      [1]:    '10  (low)',
+    }
+    return targetBlock <= 1 ? dictionary[targetBlock] : (targetBlock * 10).toString()
+  }
+
 
   // ngOnChanges() {
   //   if (this.minDiffs) this.basicChart()

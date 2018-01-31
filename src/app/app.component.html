@@ -9,21 +9,21 @@ Your browser does not support the video tag.
         <thead>
             <tr>
                 <th>Waiting time <br/> (min)</th>
-                <th>Fee rate <br/> (sat/B)</th>
-                <th>Savings <br/> (sat/B)</th>
+                <th>Fee rate <br/> (sat/vB)</th>
+                <th>Savings <br/> (sat/vB)</th>
                 <th>1 -> 2<br/> non-segwit <br/> (sat ~ usd)</th>
                 <th>1 -> 2<br/> segwit <br/> (sat ~ usd)</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let minDiff of minDiffs">
-                <td>{{ minDiff.targetBlock * 10 }}</td>
+                <td>{{ translate(minDiff.targetBlock) }}</td>
                 <td>{{ round(minDiff.feeRate, 4) }}</td>
                 <td>{{ -round(minDiff.cumDiff, 4) }}</td>
-                <td>{{ round(minDiff.feeRate * 256, 0) }} ~ {{round(minDiff.feeRate * 256 * btcusd * 1e-8, 2)}}</td>
-                <td>{{ round(minDiff.feeRate * 165, 0) }} ~ {{round(minDiff.feeRate * 165 * btcusd * 1e-8, 2)}}</td>
+                <td>{{ round(minDiff.feeRate * twoInOneOutVSize.nonsegwit, 0) }} ~ {{round(minDiff.feeRate * twoInOneOutVSize.nonsegwit * btcusd * 1e-8, 2)}}</td>
+                <td>{{ round(minDiff.feeRate * twoInOneOutVSize.segwit, 0) }} ~ {{round(minDiff.feeRate * twoInOneOutVSize.segwit * btcusd * 1e-8, 2)}}</td>
             </tr>
         </tbody>
-        <caption>First row is the best deal. 10 min waiting time is the fee for inclusion in the next block. RBF for transactions with waiting time greater than 30 min.</caption>
+        <caption>10 min waiting time is the fee for inclusion in the next block. The different priorities for 10 min indicate at what part of the next block we are targeting: high corresponds to the middle of the next block, mid 3/4 of the next block and low towards the end of next block. Broadcast only RBF transactions for waiting time greater than 20 min. Mempool can change dramatically fast. vB represents virtual bytes. Non-segwit transaction with 1 input and 2 outpus has 226 vB and a segwit transaction has 165 vB.</caption>
     </table>
 </div>
