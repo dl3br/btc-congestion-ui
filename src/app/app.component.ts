@@ -54,17 +54,13 @@ export class AppComponent {
   }
 
   translate = (targetBlock: number) => {
-    const dictionary = {
-      [0.5]: [10, 'high'],
-      [0.75]: [10, 'mid'],
-      [1]: [10, 'low'],
-      [1.5]: [20, 'high'],
-      [1.75]: [20, 'mid'],
-      [2]: [20, 'low']
+    const ceil = Math.ceil(targetBlock)
+    switch (true) {
+      case ceil - targetBlock === 0: return { time: ceil * 10, probability: 'low' }
+      case ceil - targetBlock === 0.25: return { time: ceil * 10, probability: 'mid' }
+      case ceil - targetBlock === 0.5: return { time: ceil * 10, probability: 'high' }
+      default: return { targetBlock, probability: 'low' }
     }
-    return targetBlock <= 2
-      ? dictionary[targetBlock]
-      : [(targetBlock * 10).toString(), 'low']
   }
 
   // ngOnChanges() {
