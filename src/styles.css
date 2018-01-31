@@ -11,10 +11,20 @@ body{
 
 h1{
   font-weight: bold;
+  content: ;
 }
 
-h1:hover{
+h1 span{
+  content: "Bitcoin Congestion Manager";
+  position: relative;
+}
+
+h1:hover span{
   display: none;
+}
+
+h1:hover:after{
+  content: "Fucking Fees";
 }
 
 .container-fluid {
