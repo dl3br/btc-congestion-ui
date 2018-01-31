@@ -29,6 +29,7 @@ export class AppComponent {
     segwit: 165,
     nonsegwit: 226
   }
+  scores: number[]
   // type: ngchart.ChartType
   // data: IChartistData
   // options?: any
@@ -38,7 +39,7 @@ export class AppComponent {
   ngOnInit() {
     this.minDiffSub = this._minFee.minDiff$
       .subscribe(
-      minDiff => { this.minDiffs = minDiff },
+      minDiffs => { this.minDiffs = minDiffs },
       console.error
       )
     this.btcusdSub = this._btcusd.btcusd$
@@ -53,6 +54,13 @@ export class AppComponent {
     this.minDiffSub.unsubscribe()
   }
 
+  // ngOnChanges() {
+  //   if (this.minDiffs) {
+  //     this.minDiffs = scores.map((x, i) => ({ ...this.minDiffs[i], score: x / maxScore }))
+  //     console.dir(this.minDiffs)
+  //   }
+  // }
+
   translate = (targetBlock: number) => {
     const ceil = Math.ceil(targetBlock)
     switch (true) {
@@ -63,9 +71,6 @@ export class AppComponent {
     }
   }
 
-  // ngOnChanges() {
-  //   if (this.minDiffs) this.basicChart()
-  // }
 
   // basicChart = () => {
   //   this.data = {

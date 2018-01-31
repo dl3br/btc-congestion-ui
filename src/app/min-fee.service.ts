@@ -14,17 +14,28 @@ export class MinFeeService {
     this.http.get('http://159.100.247.219:3000').map(x => x.json()),
     wamp.topic('com.fee.mindiff').flatMap(x => x.args)
   )
-  .retryWhen(errors =>
-    errors
-      .do(err => console.error(`Error: ${err}`))
-      .delayWhen(val => Observable.timer(10)))
+    .map(addScore)
+    .retryWhen(errors =>
+      errors
+        .do(err => console.error(`Error: ${err}`))
+        .delayWhen(val => Observable.timer(10)))
 }
 
 export interface MinDiff {
-  targetBlock: number,
-  feeRate: number,
-  timestamp: number,
-  date: string,
-  diff: number,
+  targetBlock: number
+  feeRate: number
+  timestamp: number
+  date: string
+  diff: number
   cumDiff: number
+  score: number
+}
+
+const addScore = (minDiffs: MinDiff[]) => {
+  const scores = minDiffs
+    .map(x => Math.sqrt(x.diff * x.cumDiff) / x.targetBlock)
+  const maxScore = Math.max(...scores)
+  const out = scores.map((x, i) => ({ ...minDiffs[i], score: x / maxScore }))
+  // console.dir(out.map(x => x.score))
+  return out
 }

@@ -10,11 +10,11 @@
         <tr>
           <th colspan="2">Waiting time <br/></th>
           <th>Fee rate</th>
+          <th>Savings</th>
           <th colspan="2">Non-segwit</th>
           <th colspan="2">Segwit</th>
         </tr>
         <tr>
-
           <th> minutes</th>
           <th>probability</th>
           <th>sat / vB</th>
@@ -25,10 +25,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let minDiff of minDiffs" class="{{-minDiff.cumDiff > 10 ? 'cool' : 'notcool'}}">
+        <tr *ngFor="let minDiff of minDiffs" class="{{minDiff.score > 0.7 ? 'cool' : 'notcool'}}">
           <td>{{ translate(minDiff.targetBlock).time }}</td>
           <td>{{ translate(minDiff.targetBlock).probability }}</td>
           <td>{{ round(minDiff.feeRate, 3) }}</td>
+          <td>{{ -round(minDiff.cumDiff, 3) }}</td>
           <td>{{ round(minDiff.feeRate * twoInOneOutVSize.nonsegwit, 0) }} </td>
           <td>${{round(minDiff.feeRate * twoInOneOutVSize.nonsegwit * btcusd * 1e-8, 2)}}</td>
           <td>{{ round(minDiff.feeRate * twoInOneOutVSize.segwit, 0) }} </td>
