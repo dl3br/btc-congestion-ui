@@ -9,6 +9,7 @@ import {
   MinDiff,
 } from './min-fee.service'
 import { BtcUsdService } from './btc-usd.service'
+import { BlockDetectorService } from './block-detector.service'
 import { Line, IChartistData } from 'chartist'
 import * as ngchart from 'ng-chartist'
 import { Subscription } from 'rxjs/Subscription';
@@ -25,6 +26,8 @@ export class AppComponent {
   btcusd: number
   minDiffSub: Subscription
   btcusdSub: Subscription
+  minsFromLastBlockSub: Subscription
+  minsFromLastBlock: number
   twoInOneOutVSize = {
     segwit: 165,
     nonsegwit: 226
@@ -34,7 +37,11 @@ export class AppComponent {
   // data: IChartistData
   // options?: any
 
-  constructor(private _minFee: MinFeeService, private _btcusd: BtcUsdService) { }
+  constructor(
+    private _minFee: MinFeeService,
+    private _btcusd: BtcUsdService,
+    private _blockDetector: BlockDetectorService
+  ) { }
 
   ngOnInit() {
     this.minDiffSub = this._minFee.minDiff$
@@ -47,11 +54,21 @@ export class AppComponent {
       btcusd => { this.btcusd = btcusd },
       console.error
       )
+    // this.interBlockIntervalSub = this._blockDetector.interBlockInterval$
+    //   .subscribe(
+    //   ibi => { this.interBlockInterval = ibi }
+    //   )
+
+    this.minsFromLastBlockSub = this._blockDetector.minsFromLastBlock$
+      .subscribe(
+      mins => { this.minsFromLastBlock = mins }
+      )
   }
 
   ngOnDestroy() {
     this.btcusdSub.unsubscribe()
     this.minDiffSub.unsubscribe()
+    this.minsFromLastBlockSub.unsubscribe()
   }
 
   // ngOnChanges() {

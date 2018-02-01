@@ -1,24 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Client } from 'thruway.js'
 import { Observable } from 'rxjs/Observable'
 import { merge } from 'rxjs/observable/merge'
 import { timer } from 'rxjs/observable/timer'
-import 'rxjs/add/operator/delayWhen'
 import { Http } from '@angular/http'
-const wamp = new Client('ws://159.100.247.219:8080/ws', 'realm1')
+import 'rxjs/add/operator/delayWhen'
+import { Client } from 'thruway.js'
+import { WampConnectorService } from './wamp-connector.service'
+// const wamp = new Client('ws://159.100.247.219:8080/ws', 'realm1')
 @Injectable()
 export class MinFeeService {
-  constructor(private http: Http) { }
+  constructor(private http: Http, private wamp: WampConnectorService) { }
 
   minDiff$: Observable<MinDiff[]> = merge(
     this.http.get('http://159.100.247.219:3000').map(x => x.json()),
-    wamp.topic('com.fee.mindiff').flatMap(x => x.args)
+    this.wamp.getWamp().topic('com.fee.mindiff').flatMap(x => x.args)
   )
     .map(addScore)
     .retryWhen(errors =>
       errors
         .do(err => console.error(`Error: ${err}`))
-        .delayWhen(val => Observable.timer(10)))
+        .delayWhen(val => timer(10)))
 }
 
 const addScore = (minDiffs: MinDiff[]) => {
