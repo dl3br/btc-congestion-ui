@@ -99,5 +99,6 @@ export class AppComponent {
   // }
 
   round = (value: number, places: number = 4) =>
-    +(Math.round(Number(value.toString() + 'e+' + places)) + 'e-' + places);
+    (+(Math.round(Number(value.toString() + 'e+' + places)) + 'e-' + places))
+      .toFixed(places)
 }
