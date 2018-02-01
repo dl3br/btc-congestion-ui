@@ -11,7 +11,7 @@ import { AboutComponent } from './about/about.component'
 import { AppRoutingModule } from './app-routing.module';
 import { BtcComponent } from './btc/btc.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component'
-
+import { HashLocationStrategy, LocationStrategy } from '@angular/common/'
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +25,16 @@ import { NavBarComponent } from './nav-bar/nav-bar.component'
     HttpModule,
     AppRoutingModule,
   ],
-  providers: [MinFeeService, BtcUsdService, BlockDetectorService, WampConnectorService],
+  providers: [
+    MinFeeService,
+    BtcUsdService,
+    BlockDetectorService,
+    WampConnectorService,
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

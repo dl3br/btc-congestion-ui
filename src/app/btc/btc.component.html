@@ -10,7 +10,7 @@
       A new block was just found!
     </h5>
     <h5 *ngIf="minsFromLastBlock <= 10">
-      Last block {{ minsFromLastBlock }} minutes ago!
+      Last block found {{ minsFromLastBlock }} minutes ago!
     </h5>
     <h5 *ngIf="minsFromLastBlock > 10 && minsFromLastBlock <= 30">
       Traffic 'block'ed for {{ minsFromLastBlock }} minutes! Hold tight, and

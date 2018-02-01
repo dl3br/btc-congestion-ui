@@ -5,9 +5,9 @@ import { BtcComponent } from './btc/btc.component'
 import { AboutComponent } from './about/about.component'
 const routes: Routes = [
   {
-  path: '',
-  redirectTo: 'btc',
-  pathMatch: 'full'
+    path: '',
+    redirectTo: 'btc',
+    pathMatch: 'full'
   },
   {
     path: 'btc',
