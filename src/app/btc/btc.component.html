@@ -7,24 +7,24 @@
 
   <div *ngIf="minsFromLastBlock !== undefined">
     <h5 *ngIf="minsFromLastBlock === 0">
-      A new block was just found!
+      Yay! A new block was just found!
     </h5>
-    <h5 *ngIf="minsFromLastBlock <= 10">
+    <h5 *ngIf="minsFromLastBlock > 0 && minsFromLastBlock <= 10">
       Last block found {{ minsFromLastBlock }} minutes ago!
     </h5>
     <h5 *ngIf="minsFromLastBlock > 10 && minsFromLastBlock <= 30">
-      Traffic 'block'ed for {{ minsFromLastBlock }} minutes! Hold tight, and
+      Traffic blocked for {{ minsFromLastBlock }} minutes! Hold tight, and
       don't jump in front of the line! That would delay all others.
     </h5>
     <h5 *ngIf="minsFromLastBlock > 30 && minsFromLastBlock <= 50">
-      Shit! It's bad! Traffic 'block'ed for {{ minsFromLastBlock }} minutes!
-      Other bitcoiners picked their fees more than {{ minsFromLastBlock }} minutes
-      ago and they could't know about the blockage! But you know it! Please
-      don't block them! Pick a low fee!
+      Shit! It's bad! Traffic blocked for {{ minsFromLastBlock }} minutes!
+      Some bitcoiners picked their fees more than {{ minsFromLastBlock }} minutes
+      ago and they could't know about the blockage! But you know it! Don't you
+      dare to block them! Pick a low fee!
     </h5>
     <h5 *ngIf="minsFromLastBlock > 50">
       Bitcoin blockchain stoped! Jammed for {{ minsFromLastBlock }} minutes!
-      Poisson has its own motives! Poisson, please un'block' us!
+      Poisson has its own motives! Poisson, please unblock us!
     </h5>
   </div>
 
