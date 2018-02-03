@@ -6,8 +6,6 @@ import { Http } from '@angular/http'
 import 'rxjs/add/operator/delayWhen'
 import { Client } from 'thruway.js'
 import { WampConnectorService } from './wamp-connector.service'
-import { timer } from 'rxjs/observable/timer'
-// const wamp = new Client('ws://159.100.247.219:8080/ws', 'realm1')
 @Injectable()
 export class MinFeeService {
   constructor(private http: Http, private wamp: WampConnectorService) { }
