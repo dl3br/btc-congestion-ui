@@ -10,14 +10,16 @@ import { HttpModule } from '@angular/http'
 import { AboutComponent } from './about/about.component'
 import { AppRoutingModule } from './app-routing.module';
 import { BtcComponent } from './btc/btc.component';
+import { ApiComponent } from './api/api.component'
 import { NavBarComponent } from './nav-bar/nav-bar.component'
-import { HashLocationStrategy, LocationStrategy } from '@angular/common/'
+import { HashLocationStrategy, LocationStrategy } from '@angular/common/';
 @NgModule({
   declarations: [
     AppComponent,
     AboutComponent,
     BtcComponent,
     NavBarComponent,
+    ApiComponent,
   ],
   imports: [
     BrowserModule,

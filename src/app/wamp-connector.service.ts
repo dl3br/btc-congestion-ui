@@ -10,9 +10,4 @@ export class WampConnectorService {
     this.wamp === undefined
       ? this.wamp = new Client('ws://159.100.247.219:8080/ws', 'realm1')
       : this.wamp
-
-  close = () =>
-    this.wamp !== undefined
-    ? this.wamp.close()
-    : null
 }

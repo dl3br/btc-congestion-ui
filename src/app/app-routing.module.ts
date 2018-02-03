@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component'
 import { BtcComponent } from './btc/btc.component'
+import { ApiComponent } from './api/api.component'
 import { AboutComponent } from './about/about.component'
 const routes: Routes = [
   {
@@ -12,6 +13,11 @@ const routes: Routes = [
   {
     path: 'btc',
     component: BtcComponent
+    // children: []
+  },
+  {
+    path: 'api',
+    component: ApiComponent
     // children: []
   },
   {

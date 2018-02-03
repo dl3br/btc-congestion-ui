@@ -10,9 +10,6 @@ import {
 } from '../min-fee.service'
 import { BtcUsdService } from '../btc-usd.service'
 import { BlockDetectorService } from '../block-detector.service'
-import { WampConnectorService } from '../wamp-connector.service'
-import { Line, IChartistData } from 'chartist'
-import * as ngchart from 'ng-chartist'
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -34,18 +31,24 @@ export class BtcComponent implements OnInit, OnDestroy{
     nonsegwit: 226
   }
   scores: number[]
+  lastUpdatedCounterSub: Subscription
+  lastUpdatedCounter: number
 
   constructor(
     private _minFee: MinFeeService,
     private _btcusd: BtcUsdService,
     private _blockDetector: BlockDetectorService,
-    private _wamp: WampConnectorService
   ) { }
 
   ngOnInit() {
     this.minDiffSub = this._minFee.minDiff$
       .subscribe(
       minDiffs => { this.minDiffs = minDiffs },
+      console.error
+      )
+    this.lastUpdatedCounterSub = this._minFee.lastUpdatedCounter$
+      .subscribe(
+      xlastUpdatedCounter => { this.lastUpdatedCounter = xlastUpdatedCounter },
       console.error
       )
     this.btcusdSub = this._btcusd.btcusd$
