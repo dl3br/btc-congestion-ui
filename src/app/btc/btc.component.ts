@@ -11,8 +11,6 @@ import {
 import { BtcUsdService } from '../btc-usd.service'
 import { BlockDetectorService } from '../block-detector.service'
 import { Subscription } from 'rxjs/Subscription'
-import 'rxjs/add/operator/distinctUntilChanged'
-import 'rxjs/add/operator/scan'
 
 @Component({
   selector: 'btc-component',
