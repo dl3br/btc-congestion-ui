@@ -10,7 +10,9 @@ import {
 } from '../min-fee.service'
 import { BtcUsdService } from '../btc-usd.service'
 import { BlockDetectorService } from '../block-detector.service'
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Subscription'
+import 'rxjs/add/operator/distinctUntilChanged'
+import 'rxjs/add/operator/scan'
 
 @Component({
   selector: 'btc-component',
@@ -19,13 +21,13 @@ import { Subscription } from 'rxjs/Subscription';
 })
 
 
-export class BtcComponent implements OnInit, OnDestroy{
+export class BtcComponent implements OnInit, OnDestroy {
   minDiffs: MinDiff[]
   btcusd: number
   minDiffSub: Subscription
   btcusdSub: Subscription
-  minsFromLastBlockSub: Subscription
-  minsFromLastBlock: number
+  lastBlockSub: Subscription
+  lastBlock: { minutes: number, blockHash: string }
   twoInOneOutVSize = {
     segwit: 165,
     nonsegwit: 226
@@ -33,6 +35,7 @@ export class BtcComponent implements OnInit, OnDestroy{
   scores: number[]
   lastUpdatedCounterSub: Subscription
   lastUpdatedCounter: number
+  reviveSockSub: Subscription
 
   constructor(
     private _minFee: MinFeeService,
@@ -41,6 +44,22 @@ export class BtcComponent implements OnInit, OnDestroy{
   ) { }
 
   ngOnInit() {
+    this.doSubscribe()
+  }
+
+  ngOnDestroy() {
+    this.doUnsubscribe()
+    this.lastUpdatedCounterSub.unsubscribe()
+  }
+
+  doUnsubscribe = () => {
+    this.btcusdSub.unsubscribe()
+    this.lastUpdatedCounterSub.unsubscribe()
+    this.lastBlockSub.unsubscribe()
+    this.minDiffSub.unsubscribe()
+  }
+
+  doSubscribe = () => {
     this.minDiffSub = this._minFee.minDiff$
       .subscribe(
       minDiffs => { this.minDiffs = minDiffs },
@@ -56,18 +75,17 @@ export class BtcComponent implements OnInit, OnDestroy{
       btcusd => { this.btcusd = btcusd },
       console.error
       )
-
-    this.minsFromLastBlockSub = this._blockDetector.minsFromLastBlock$
+    this.lastBlockSub = this._blockDetector.lastBlock$
       .subscribe(
-      mins => { this.minsFromLastBlock = mins },
+      mins => { this.lastBlock = mins },
       console.error
       )
-  }
-
-  ngOnDestroy() {
-    this.btcusdSub.unsubscribe()
-    this.minDiffSub.unsubscribe()
-    this.minsFromLastBlockSub.unsubscribe()
+    this.reviveSockSub = this._minFee.lastUpdatedCounter$
+      .map(x => x < 13) // 13 s - server updates every 10 s
+      .filter(x => x === false)
+      .take(1)
+      .subscribe(this.doUnsubscribe) // unsubscriptions closes socket
+      .add(this.doSubscribe) // recursion to reopen socket
   }
 
   translate = (targetBlock: number) => {

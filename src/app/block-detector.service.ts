@@ -10,8 +10,8 @@ export class BlockDetectorService {
 
   constructor(private wamp: WampConnectorService) { }
 
-  minsFromLastBlock$: Observable<number> =
-    this.wamp.getWamp()
-      .topic('com.fee.minsfromlastblock')
-      .flatMap(x => x.args)
+  lastBlock$: Observable<{ minutes: number, blockHash: string }> =
+  this.wamp.getWamp()
+    .topic('com.fee.minsfromlastblock')
+    .flatMap(x => x.args)
 }

@@ -5,29 +5,22 @@
     Your shitty browser does not support the video tag.
   </video>
 
-  <div *ngIf="minsFromLastBlock !== undefined">
-    <div *ngIf="minsFromLastBlock === 0">
+  <div *ngIf="lastBlock !== undefined">
+    <div *ngIf="lastBlock.minutes === 0">
       Yay! A new block was just found!
+      Last block hash {{ lastBlock.blockHash }}
     </div>
-    <div *ngIf="minsFromLastBlock > 0 && minsFromLastBlock <= 10">
-      Last block found {{ minsFromLastBlock }} minutes ago!
+    <div *ngIf="lastBlock.minutes > 0 && lastBlock.minutes <= 10">
+      Last block found {{ lastBlock.minutes }} minutes ago! Last block hash {{ lastBlock.blockHash }}
     </div>
-    <div *ngIf="minsFromLastBlock > 10 && minsFromLastBlock <= 30">
-      Traffic blocked for {{ minsFromLastBlock }} minutes! Hold tight, and
-      don't jump in front of the line! That would delay all others.
+    <div *ngIf="lastBlock.minutes > 10 && lastBlock.minutes <= 30">
+      Traffic blocked for {{ lastBlock.minutes }} minutes! Hold tight, and don't jump in front of the line! That would delay all others. Last block hash {{ lastBlock.blockHash }}
     </div>
-    <div *ngIf="minsFromLastBlock > 30 && minsFromLastBlock <= 50">
-      Shit! It's bad! Traffic blocked for {{ minsFromLastBlock }} minutes!
-      Some bitcoiners picked their fees more than {{ minsFromLastBlock }} minutes
-      ago and they could't know about the blockage! But you know it! Don't you
-      dare to block them! Pick a low fee!
+    <div *ngIf="lastBlock.minutes > 30 && lastBlock.minutes <= 50">
+      Shit! It's bad! Traffic blocked for {{ lastBlock.minutes }} minutes! Some bitcoiners picked their fees more than {{ lastBlock.minutes }} minutes ago and they could't know about the blockage! But you know it! Don't you dare to block them! Pick a low fee! Last block hash {{ lastBlock.blockHash }}
     </div>
-    <div *ngIf="minsFromLastBlock > 50">
-      Bitcoin blockchain stoped! Jammed for {{ minsFromLastBlock }} minutes!
-      "Poisson, please unblock us!" said the officer. To which Poisson
-      responded: "The probability of me giving you a block now is equal to the
-      probability you had to get a block {{minsFromLastBlock}} minutes ago,
-      loser!"
+    <div *ngIf="lastBlock.minutes > 50">
+      Bitcoin blockchain stoped! Jammed for {{ lastBlock.minutes }} minutes! "Poisson, please unblock us!" said the officer. To which Poisson responded: "The probability of me giving you a block now is equal to the probability you had to get a block {{lastBlock.minutes}} minutes ago, loser!" Last block hash {{ lastBlock.blockHash }}
     </div>
   </div>
 
@@ -35,15 +28,21 @@
     <table class="table table-hover table-dark" align="center">
       <thead>
         <tr>
-          <th colspan="4">Last updated {{lastUpdatedCounter}} seconds ago</th>
-          <th colspan="4">1 input and 2 outputs transaction <br/></th>
+          <th colspan="4" *ngIf="lastUpdatedCounter <= 10">
+            Last updated {{lastUpdatedCounter}} seconds ago
+          </th>
+          <th colspan="4" *ngIf="lastUpdatedCounter > 10">
+            Disconnected! Please, reload page manually!
+          </th>
+          <th colspan="4" *ngIf="lastUpdatedCounter === undefined"></th>
+          <th colspan=" 4 ">1 input and 2 outputs transaction <br/></th>
         </tr>
         <tr>
-          <th colspan="2">est. Waiting time <br/></th>
+          <th colspan="2 ">est. Waiting time <br/></th>
           <th>Fee rate</th>
           <th>Savings</th>
-          <th colspan="2">Non-segwit</th>
-          <th colspan="2">Segwit</th>
+          <th colspan="2 ">Non-segwit</th>
+          <th colspan="2 ">Segwit</th>
         </tr>
         <tr>
           <th> minutes</th>
@@ -57,7 +56,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let minDiff of minDiffs" class="{{minDiff.score > 0.2 ? 'cool' : 'notcool'}}">
+        <tr *ngFor="let minDiff of minDiffs " class="{{minDiff.score> 0.2 ? 'cool' : 'notcool'}}">
           <td>{{ translate(minDiff.targetBlock).time }}</td>
           <td>{{ translate(minDiff.targetBlock).probability }}</td>
           <td>{{ round(minDiff.feeRate, 3) }}</td>

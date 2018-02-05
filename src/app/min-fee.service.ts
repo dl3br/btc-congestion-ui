@@ -23,7 +23,6 @@ export class MinFeeService {
 
   lastUpdatedCounter$ = this.minDiff$
     .switchMap(_ => timer(0, 1e+3))
-
 }
 
 const addScore = (minDiffs: MinDiff[]) => {
