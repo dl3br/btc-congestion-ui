@@ -3,15 +3,20 @@ import { Client } from 'thruway.js'
 import { Observable } from 'rxjs/Observable'
 import { timer } from 'rxjs/observable/timer'
 import { WampConnectorService } from './wamp-connector.service'
-// const wamp = new Client('ws://159.100.247.219:8080/ws', 'realm1')
+import { Http } from '@angular/http'
+import { merge } from 'rxjs/observable/merge'
+const url = 'http://159.100.247.219:3000/btc/minutes'
 
 @Injectable()
 export class BlockDetectorService {
 
-  constructor(private wamp: WampConnectorService) { }
+  constructor(private wamp: WampConnectorService, private http: Http) { }
 
   lastBlock$: Observable<{ minutes: number, blockHash: string }> =
-  this.wamp.getWamp()
-    .topic('com.fee.minsfromlastblock')
-    .flatMap(x => x.args)
+    merge(
+      this.http.get(url).map(x => x.json()),
+      this.wamp.getWamp()
+        .topic('com.fee.minsfromlastblock')
+        .flatMap(x => x.args),
+  )
 }

@@ -6,7 +6,7 @@ import { Http } from '@angular/http'
 import 'rxjs/add/operator/delayWhen'
 import { Client } from 'thruway.js'
 import { WampConnectorService } from './wamp-connector.service'
-const url = 'http://159.100.247.219:3000'
+const url = 'http://159.100.247.219:3000/btc/deals'
 
 @Injectable()
 export class MinFeeService {

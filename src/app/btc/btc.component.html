@@ -7,8 +7,7 @@
 
   <div *ngIf="lastBlock !== undefined">
     <div *ngIf="lastBlock.minutes === 0">
-      Yay! A new block was just found!
-      Last block hash {{ lastBlock.blockHash }}
+      Yay! A new block was just found! Last block hash {{ lastBlock.blockHash }}
     </div>
     <div *ngIf="lastBlock.minutes > 0 && lastBlock.minutes <= 10">
       Last block found {{ lastBlock.minutes }} minutes ago! Last block hash {{ lastBlock.blockHash }}
@@ -46,6 +45,18 @@
         </tr>
         <tr>
           <th> minutes</th>
+          <button (click)="showSelected()">
+            <span *ngIf="!selected">Show</span>
+            <span *ngIf="selected">Hide</span>
+          </button>
+          <div>
+            <ul *ngIf="selected">
+              <li *ngFor="let i of items">
+                <p>{{i.name}} ({{i.exp}})</p>
+              </li>
+            </ul>
+          </div>
+
           <th>probability</th>
           <th>sat / vB</th>
           <!-- <th>sat / vB</th> -->
@@ -67,7 +78,7 @@
           <td>${{round(minDiff.feeRate * twoInOneOutVSize.segwit * btcusd * 1e-8, 2)}}</td>
         </tr>
       </tbody>
-      <caption>10 min waiting time is the fee for inclusion in the next block. The different priorities for 10 and 20 min indicate what part of the block we are targeting: high corresponds to the middle of the block, mid 3/4 of the block and low towards the end of the block. Please broadcast only RBF transactions for waiting time greater than 20 min. Mempool can change dramatically fast. vB represents virtual bytes. Non-segwit transaction with 1 input and 2 outpus has 226 vB and a segwit transaction has 165 vB. A block max capacity is 1M vB</caption>
+      <caption>10 min waiting time is the fee for inclusion in the next block. The different priorities for 10 and 20 min indicate what part of the block we are targeting: high corresponds to the middle of the block, mid 3/4 of the block and low towards the end of the block. Please broadcast only RBF transactions for waiting time greater than 20 min. Mempool can change dramatically fast. vB represents virtual bytes. Non-segwit transaction with 1 input and 2 outpus has 226 vB and a segwit transaction has 165 vB. A block max capacity is 1MvB.</caption>
     </table>
   </div>
 </div>
