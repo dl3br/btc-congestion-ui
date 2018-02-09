@@ -22,6 +22,7 @@ import { Subscription } from 'rxjs/Subscription'
 export class BtcComponent implements OnInit, OnDestroy {
   minDiffs: MinDiff[] | undefined
   btcusd: number
+  advanced = false
   minDiffSub: Subscription
   btcusdSub: Subscription
   lastBlockSub: Subscription
@@ -88,12 +89,14 @@ export class BtcComponent implements OnInit, OnDestroy {
       .add(this.doSubscribe) // recursion to reopen socket
   }
 
+  toggleAdvanced = () => this.advanced = !this.advanced
+
   translate = (targetBlock: number) => {
     const ceil = Math.ceil(targetBlock)
     switch (true) {
-      case ceil - targetBlock === 0: return { time: ceil * 10, probability: 'low' }
-      case ceil - targetBlock === 0.25: return { time: ceil * 10, probability: 'mid' }
-      case ceil - targetBlock === 0.5: return { time: ceil * 10, probability: 'high' }
+      case ceil - targetBlock === 0: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'low' }
+      case ceil - targetBlock === 0.25: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'mid' }
+      case ceil - targetBlock === 0.5: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'high' }
       default: return { targetBlock, probability: 'low' }
     }
   }

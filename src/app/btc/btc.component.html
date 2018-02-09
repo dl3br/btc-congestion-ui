@@ -5,33 +5,37 @@
     Your shitty browser does not support the video tag.
   </video>
 
-  <div *ngIf="lastBlock !== undefined">
-    <div *ngIf="lastBlock.minutes === 0">
-      Yay! A new block was just found!
-      Last block hash {{ lastBlock.blockHash }}
-    </div>
-    <div *ngIf="lastBlock.minutes > 0 && lastBlock.minutes <= 10">
-      Last block found {{ lastBlock.minutes }} minutes ago! Last block hash {{ lastBlock.blockHash }}
-    </div>
-    <div *ngIf="lastBlock.minutes > 10 && lastBlock.minutes <= 30">
-      Traffic blocked for {{ lastBlock.minutes }} minutes! Hold tight, and don't jump in front of the line! That would delay all others. Last block hash {{ lastBlock.blockHash }}
-    </div>
-    <div *ngIf="lastBlock.minutes > 30 && lastBlock.minutes <= 50">
-      Shit! It's bad! Traffic blocked for {{ lastBlock.minutes }} minutes! Some bitcoiners picked their fees more than {{ lastBlock.minutes }} minutes ago and they could't know about the blockage! But you know it! Don't you dare to block them! Pick a low fee! Last block hash {{ lastBlock.blockHash }}
-    </div>
-    <div *ngIf="lastBlock.minutes > 50">
-      Bitcoin blockchain stoped! Jammed for {{ lastBlock.minutes }} minutes! "Poisson, please unblock us!" said the officer. To which Poisson responded: "The probability of me giving you a block now is equal to the probability you had to get a block {{lastBlock.minutes}} minutes ago, loser!" Last block hash {{ lastBlock.blockHash }}
-    </div>
-  </div>
+  <!-- <div *ngIf="lastBlock !== undefined"> -->
+  <!-- <div *ngIf="lastBlock.minutes === 0"> -->
+  <!-- Yay! A new block was just found! Last block hash {{ lastBlock.blockHash }} -->
+  <!-- </div> -->
+  <!-- <div *ngIf="lastBlock.minutes > 0 && lastBlock.minutes <= 10"> -->
+  <!-- Last block found {{ lastBlock.minutes }} minutes ago! Last block hash {{ lastBlock.blockHash }} -->
+  <!-- </div> -->
+  <!-- <div *ngIf="lastBlock.minutes > 10 && lastBlock.minutes <= 30"> -->
+  <!-- Traffic blocked for {{ lastBlock.minutes }} minutes! Hold tight, and don't jump in front of the line! That would delay all others. Last block hash {{ lastBlock.blockHash }} -->
+  <!-- </div> -->
+  <!-- <div *ngIf="lastBlock.minutes > 30 && lastBlock.minutes <= 50"> -->
+  <!-- Shit! It's bad! Traffic blocked for {{ lastBlock.minutes }} minutes! Some bitcoiners picked their fees more than {{ lastBlock.minutes }} minutes ago and they could't know about the blockage! But you know it! Don't you dare to block them! Pick a low fee! Last block hash {{ lastBlock.blockHash }} -->
+  <!-- </div> -->
+  <!-- <div *ngIf="lastBlock.minutes > 50"> -->
+  <!-- Bitcoin blockchain stoped! Jammed for {{ lastBlock.minutes }} minutes! "Poisson, please unblock us!" said the officer. To which Poisson responded: "The probability of me giving you a block now is equal to the probability you had to get a block {{lastBlock.minutes}} minutes ago, loser!" Last block hash {{ lastBlock.blockHash }} -->
+  <!-- </div> -->
+  <!-- </div> -->
+
+
 
   <div class="table-responsive-md ">
     <table class="table table-hover table-dark" align="center">
       <thead>
         <tr>
-          <th colspan="3" *ngIf="lastUpdatedCounter <= 10">
-            Last updated {{lastUpdatedCounter}} seconds ago
+          <th colspan="1">
+            <input (change)="toggleAdvanced()" type="checkbox"> advanced
           </th>
-          <th colspan="3" *ngIf="lastUpdatedCounter > 10">
+          <th colspan="2" *ngIf="lastUpdatedCounter <= 10">
+            Last block {{lastBlock.minutes}} min ago, updated {{lastUpdatedCounter}} s ago
+          </th>
+          <th colspan="2" *ngIf="lastUpdatedCounter > 10">
             Disconnected! Please, reload page manually!
           </th>
           <th colspan="4" *ngIf="lastUpdatedCounter === undefined"></th>
@@ -45,8 +49,8 @@
           <th colspan="2 ">Segwit</th>
         </tr>
         <tr>
-          <th> minutes</th>
-          <th>probability</th>
+          <th> {{ advanced ? "blocks" : "minutes" }} </th>
+          <th> {{ advanced ? "position (MvB)" : "probability" }}</th>
           <th>sat / vB</th>
           <!-- <th>sat / vB</th> -->
           <th>sat</th>
