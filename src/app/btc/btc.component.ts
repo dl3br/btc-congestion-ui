@@ -20,12 +20,12 @@ import { Subscription } from 'rxjs/Subscription'
 
 
 export class BtcComponent implements OnInit, OnDestroy {
-  minDiffs: MinDiff[]
+  minDiffs: MinDiff[] | undefined
   btcusd: number
   minDiffSub: Subscription
   btcusdSub: Subscription
   lastBlockSub: Subscription
-  lastBlock: { minutes: number, blockHash: string }
+  lastBlock: { minutes: number, blockHash: string } | undefined
   twoInOneOutVSize = {
     segwit: 165,
     nonsegwit: 226
@@ -55,6 +55,7 @@ export class BtcComponent implements OnInit, OnDestroy {
     this.lastUpdatedCounterSub.unsubscribe()
     this.lastBlockSub.unsubscribe()
     this.minDiffSub.unsubscribe()
+    this.lastBlock = undefined
   }
 
   doSubscribe = () => {

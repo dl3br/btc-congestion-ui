@@ -28,19 +28,19 @@
     <table class="table table-hover table-dark" align="center">
       <thead>
         <tr>
-          <th colspan="4" *ngIf="lastUpdatedCounter <= 10">
+          <th colspan="3" *ngIf="lastUpdatedCounter <= 10">
             Last updated {{lastUpdatedCounter}} seconds ago
           </th>
-          <th colspan="4" *ngIf="lastUpdatedCounter > 10">
+          <th colspan="3" *ngIf="lastUpdatedCounter > 10">
             Disconnected! Please, reload page manually!
           </th>
           <th colspan="4" *ngIf="lastUpdatedCounter === undefined"></th>
-          <th colspan=" 4 ">1 input and 2 outputs transaction <br/></th>
+          <th colspan="4 ">1 input and 2 outputs transaction <br/></th>
         </tr>
         <tr>
           <th colspan="2 ">est. Waiting time <br/></th>
           <th>Fee rate</th>
-          <th>Savings</th>
+          <!-- <th>Savings</th> -->
           <th colspan="2 ">Non-segwit</th>
           <th colspan="2 ">Segwit</th>
         </tr>
@@ -48,7 +48,7 @@
           <th> minutes</th>
           <th>probability</th>
           <th>sat / vB</th>
-          <th>sat / vB</th>
+          <!-- <th>sat / vB</th> -->
           <th>sat</th>
           <th>usd</th>
           <th>sat</th>
@@ -56,11 +56,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let minDiff of minDiffs " class="{{minDiff.score> 0.8 ? 'cool' : 'notcool'}}">
+        <tr *ngFor="let minDiff of minDiffs " class="{{minDiff.score> 0.7 ? 'cool' : 'notcool'}}">
           <td>{{ translate(minDiff.targetBlock).time }}</td>
           <td>{{ translate(minDiff.targetBlock).probability }}</td>
           <td>{{ round(minDiff.feeRate, 3) }}</td>
-          <td>{{ -round(minDiff.cumDiff, 3) }}</td>
+          <!-- <td>{{ -round(minDiff.cumDiff, 3) }}</td> -->
           <td>{{ round(minDiff.feeRate * twoInOneOutVSize.nonsegwit, 0) }} </td>
           <td>${{round(minDiff.feeRate * twoInOneOutVSize.nonsegwit * btcusd * 1e-8, 2)}}</td>
           <td>{{ round(minDiff.feeRate * twoInOneOutVSize.segwit, 0) }} </td>

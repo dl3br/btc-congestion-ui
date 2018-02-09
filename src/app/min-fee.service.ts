@@ -16,7 +16,7 @@ export class MinFeeService {
     this.http.get(url).map(x => x.json()),
     this.wamp.getWamp().topic('com.fee.mindiff').flatMap(x => x.args)
   )
-    .map(addScore)
+    // .map(addScore)
     // .do(x => console.dir(x.map(y => y.score)))
     .retryWhen(errors =>
       errors
@@ -28,20 +28,20 @@ export class MinFeeService {
     .switchMap(_ => timer(0, 1e+3))
 }
 
-const addScore = (minDiffs: MinDiff[]) => {
-  const scores = minDiffs
-    .map(x =>
-      (Math.sqrt(x.diff * x.cumDiff) + 1) / (x.targetBlock * x.feeRate))
-  const maxScore = Math.max(...scores)
-  return scores.map((x, i) => ({ ...minDiffs[i], score: x / maxScore }))
-}
+// const addScore = (minDiffs: MinDiff[]) => {
+//   const scores = minDiffs
+//     .map(x =>
+//       (1 - x.diff) / (x.targetBlock * x.feeRate))
+//   const maxScore = Math.max(...scores)
+//   return scores.map((x, i) => ({ ...minDiffs[i], score: x / maxScore }))
+// }
 
 export interface MinDiff {
   targetBlock: number
   feeRate: number
-  timestamp: number
+  // timestamp: number
   date: string
-  diff: number
-  cumDiff: number
+  // diff: number
+  // cumDiff: number
   score: number
 }
