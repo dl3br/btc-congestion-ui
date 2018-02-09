@@ -56,6 +56,7 @@ export class BtcComponent implements OnInit, OnDestroy {
     this.lastBlockSub.unsubscribe()
     this.minDiffSub.unsubscribe()
     this.lastBlock = undefined
+    this.minDiffs = undefined
   }
 
   doSubscribe = () => {
