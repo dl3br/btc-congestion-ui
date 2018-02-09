@@ -6,19 +6,22 @@ import { Http } from '@angular/http'
 import 'rxjs/add/operator/delayWhen'
 import { Client } from 'thruway.js'
 import { WampConnectorService } from './wamp-connector.service'
+const url = 'http://159.100.247.219:3000'
+
 @Injectable()
 export class MinFeeService {
   constructor(private http: Http, private wamp: WampConnectorService) { }
 
   minDiff$: Observable<MinDiff[]> = merge(
-    this.http.get('http://159.100.247.219:3000').map(x => x.json()),
+    this.http.get(url).map(x => x.json()),
     this.wamp.getWamp().topic('com.fee.mindiff').flatMap(x => x.args)
   )
     .map(addScore)
+    // .do(x => console.dir(x.map(y => y.score)))
     .retryWhen(errors =>
       errors
         .do(err => console.error(`Error: ${err}`))
-        .delayWhen(val => timer(10)))
+        .delayWhen(val => timer(10e+3)))
     .share()
 
   lastUpdatedCounter$ = this.minDiff$
@@ -27,7 +30,8 @@ export class MinFeeService {
 
 const addScore = (minDiffs: MinDiff[]) => {
   const scores = minDiffs
-    .map(x => Math.sqrt(x.diff * x.cumDiff) / x.targetBlock)
+    .map(x =>
+      (Math.sqrt(x.diff * x.cumDiff) + 1) / (x.targetBlock * x.feeRate))
   const maxScore = Math.max(...scores)
   return scores.map((x, i) => ({ ...minDiffs[i], score: x / maxScore }))
 }
