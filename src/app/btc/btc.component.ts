@@ -84,11 +84,11 @@ export class BtcComponent implements OnInit, OnDestroy {
 
   translate = (targetBlock: number) => {
     const ceil = Math.ceil(targetBlock)
-    switch (true) {
-      case ceil - targetBlock === 0: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'low' }
-      case ceil - targetBlock === 0.25: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'mid' }
-      case ceil - targetBlock === 0.5: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'high' }
-      case ceil - targetBlock === 0.75: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'highest' }
+    switch (ceil - targetBlock) {
+      case 0: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'low' }
+      case 0.25: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'mid' }
+      case 0.5: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'high' }
+      case 0.75: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'highest' }
       default: return { targetBlock, probability: 'low' }
     }
   }
