@@ -52,10 +52,10 @@ export class BtcComponent implements OnInit, OnDestroy {
   }
 
   doUnsubscribe = () => {
-    this.btcusdSub.unsubscribe()
-    this.lastUpdatedCounterSub.unsubscribe()
-    this.lastBlockSub.unsubscribe()
     this.minDiffSub.unsubscribe()
+    this.lastUpdatedCounterSub.unsubscribe()
+    this.btcusdSub.unsubscribe()
+    this.lastBlockSub.unsubscribe()
     this.lastBlock = undefined
     this.minDiffs = undefined
   }
@@ -82,11 +82,11 @@ export class BtcComponent implements OnInit, OnDestroy {
       console.error
       )
     this.reviveSockSub = this._minFee.lastUpdatedCounter$
-      .map(x => x < 13) // 13 s - server updates every 10 s
+      .map(x => x < 20) // 13 s - server updates every 10 s
       .filter(x => x === false)
       .take(1)
-      .subscribe(this.doUnsubscribe) // unsubscriptions closes socket
-      .add(this.doSubscribe) // recursion to reopen socket
+      .subscribe(() => this.doUnsubscribe()) // unsubscriptions closes socket
+      .add(() => this.doSubscribe()) // recursion to reopen socket
   }
 
   toggleAdvanced = () => this.advanced = !this.advanced
@@ -97,6 +97,7 @@ export class BtcComponent implements OnInit, OnDestroy {
       case ceil - targetBlock === 0: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'low' }
       case ceil - targetBlock === 0.25: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'mid' }
       case ceil - targetBlock === 0.5: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'high' }
+      case ceil - targetBlock === 0.75: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'highest' }
       default: return { targetBlock, probability: 'low' }
     }
   }

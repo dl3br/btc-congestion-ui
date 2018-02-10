@@ -4,47 +4,51 @@
 @import url('https://fonts.googleapis.com/css?family=Inconsolata');
 
 body {
-    font-size: 135%;
-    background-color: #111;
-    color: white;
-    font-family: "Inconsolata", monospace;
+  font-size: 135%;
+  background-color: #111;
+  color: white;
+  font-family: "Inconsolata", monospace;
 }
 
 h1 {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 h1 span {
-    content: "Bitcoin Congestion Manager";
-    position: relative;
+  content: "Bitcoin Congestion Manager";
+  position: relative;
 }
 
 h1:hover span {
-    display: none;
+  display: none;
 }
 
 h1:hover:after {
-    content: "Fucking Fees";
+  content: "Fucking Fees";
 }
 
 .container-fluid {
-    margin-top: 1.2em;
-    text-align: center;
+  margin-top: 1.2em;
+  text-align: center;
+}
+
+pre {
+  color: green;
 }
 
 .table {
-    width: 80%;
-    background-color: #222;
+  width: 80%;
+  background-color: #222;
 }
 
 .table thead {
-    background-color: #404040;
+  background-color: #404040;
 }
 
 .table thead th {
-    color: white;
-    border-bottom: none;
-    padding-bottom: .4rem;
+  color: white;
+  border-bottom: none;
+  padding-bottom: .4rem;
 }
 
 .table thead tr:nth-of-type(1) th {
@@ -56,28 +60,28 @@ h1:hover:after {
 }
 
 .table thead tr:nth-of-type(2) th {
-    border-top: none;
-    color: #8d8d8d;
-    padding: .15rem;
-    font-style: italic;
-    font-weight: normal;
-    font-size: 0.8em;
+  border-top: none;
+  color: #8d8d8d;
+  padding: .15rem;
+  font-style: italic;
+  font-weight: normal;
+  font-size: 0.8em;
 }
 
 
 table tbody tr.cool {
-    color: white;
-    font-weight: bold;
+  color: white;
+  font-weight: bold;
 }
 
 table tbody tr.notcool {
-    color: #aaa;
+  color: #aaa;
 }
 
 video {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    margin-top: 0.7em;
-    margin-bottom: 1em;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  margin-top: 0.7em;
+  margin-bottom: 1em;
 }

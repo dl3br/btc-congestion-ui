@@ -17,5 +17,4 @@ export class BtcUsdService {
       .map(x => x.json())
       .map(processResponse)
     )
-
 }
