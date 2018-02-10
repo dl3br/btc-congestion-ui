@@ -20,22 +20,20 @@ import { Subscription } from 'rxjs/Subscription'
 
 
 export class BtcComponent implements OnInit, OnDestroy {
-  minDiffs: MinDiff[] | undefined
-  btcusd: number
-  advanced = false
   minDiffSub: Subscription
   btcusdSub: Subscription
   lastBlockSub: Subscription
+  lastUpdatedCounterSub: Subscription
+  minDiffs: MinDiff[] | undefined
+  btcusd: number
+  advanced = false
   lastBlock: { minutes: number, blockHash: string } | undefined
+  scores: number[]
+  lastUpdatedCounter: number
   twoInOneOutVSize = {
     segwit: 165,
     nonsegwit: 226
   }
-  scores: number[]
-  lastUpdatedCounterSub: Subscription
-  lastUpdatedCounter: number
-  reviveSockSub: Subscription
-
   constructor(
     private _minFee: MinFeeService,
     private _btcusd: BtcUsdService,
@@ -48,7 +46,6 @@ export class BtcComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.doUnsubscribe()
-    this.lastUpdatedCounterSub.unsubscribe()
   }
 
   doUnsubscribe = () => {
@@ -81,12 +78,6 @@ export class BtcComponent implements OnInit, OnDestroy {
       mins => { this.lastBlock = mins },
       console.error
       )
-    this.reviveSockSub = this._minFee.lastUpdatedCounter$
-      .map(x => x < 20) // 13 s - server updates every 10 s
-      .filter(x => x === false)
-      .take(1)
-      .subscribe(() => this.doUnsubscribe()) // unsubscriptions closes socket
-      .add(() => this.doSubscribe()) // recursion to reopen socket
   }
 
   toggleAdvanced = () => this.advanced = !this.advanced
