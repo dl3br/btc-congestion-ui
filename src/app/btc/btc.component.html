@@ -27,28 +27,33 @@
     <table class="table table-hover table-dark" align="center">
       <thead>
         <tr>
-          <th colspan="1">
+          <th colspan="1" *ngIf="advanced" >
+            <input (change)="toggleAdvanced()" type="checkbox" checked> advanced
+          </th>
+          <th colspan="1" *ngIf="!advanced" >
             <input (change)="toggleAdvanced()" type="checkbox"> advanced
           </th>
-          <th colspan="2" *ngIf="lastUpdatedCounter <= 10">
-            Last block {{lastBlock.minutes}} min ago, updated {{lastUpdatedCounter}} s ago
+          <th colspan="2" *ngIf="lastUpdatedCounter <= maxTimeout">
+            <a href="https://tradeblock.com/bitcoin/block/{{lastBlock.blockHash}}" target="_blank">Last block {{lastBlock.minutes}} min ago,</a> updated {{lastUpdatedCounter}} s ago
           </th>
-          <th colspan="2" *ngIf="lastUpdatedCounter > 10">
+          <th colspan="2" *ngIf="lastUpdatedCounter > maxTimeout">
             Disconnected! Please, reload page manually!
           </th>
           <th colspan="4" *ngIf="lastUpdatedCounter === undefined"></th>
           <th colspan="4 ">1 input and 2 outputs transaction <br/></th>
         </tr>
         <tr>
-          <th colspan="2 ">est. Waiting time <br/></th>
+          <th colspan="1" *ngIf="advanced"> Confirmed in <br/></th>
+          <th colspan="1" *ngIf="advanced"> Mempool position <br/></th>
+          <th colspan="2" *ngIf="!advanced"> est. Waiting time <br/></th>
           <th>Fee rate</th>
           <!-- <th>Savings</th> -->
           <th colspan="2 ">Non-segwit</th>
           <th colspan="2 ">Segwit</th>
         </tr>
         <tr>
-          <th> {{ advanced ? "blocks" : "minutes" }} </th>
-          <th> {{ advanced ? "position (MvB)" : "probability" }}</th>
+          <th> {{ advanced ? "block" : "minutes" }} </th>
+          <th> {{ advanced ? "MvB" : "probability" }}</th>
           <th>sat / vB</th>
           <!-- <th>sat / vB</th> -->
           <th>sat</th>
@@ -58,7 +63,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let minDiff of minDiffs " class="{{minDiff.score> 0.7 ? 'cool' : 'notcool'}}">
+        <tr *ngFor="let minDiff of minDiffs" class="{{minDiff.score> 0.7 ? 'cool' : 'notcool'}}"  fon>
           <td>{{ translate(minDiff.targetBlock).time }}</td>
           <td>{{ translate(minDiff.targetBlock).probability }}</td>
           <td>{{ round(minDiff.feeRate, 3) }}</td>

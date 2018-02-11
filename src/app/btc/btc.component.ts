@@ -26,7 +26,7 @@ export class BtcComponent implements OnInit, OnDestroy {
   lastUpdatedCounterSub: Subscription
   minDiffs: MinDiff[] | undefined
   btcusd: number
-  advanced = false
+  advanced = true
   lastBlock: { minutes: number, blockHash: string } | undefined
   scores: number[]
   lastUpdatedCounter: number
@@ -34,6 +34,7 @@ export class BtcComponent implements OnInit, OnDestroy {
     segwit: 165,
     nonsegwit: 226
   }
+  maxTimeout = 15 // s
   constructor(
     private _minFee: MinFeeService,
     private _btcusd: BtcUsdService,
@@ -88,7 +89,7 @@ export class BtcComponent implements OnInit, OnDestroy {
       case 0: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'low' }
       case 0.25: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'mid' }
       case 0.5: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'high' }
-      case 0.75: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'highest' }
+      case 0.75: return this.advanced ? { time: ceil, probability: targetBlock } : { time: ceil * 10, probability: 'high+' }
       default: return { targetBlock, probability: 'low' }
     }
   }
