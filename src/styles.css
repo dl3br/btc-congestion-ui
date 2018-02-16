@@ -11,11 +11,6 @@ body {
 }
 
 /*
- * Navbar
- */
-
-
-/*
  * Texts
  */
 
@@ -44,7 +39,7 @@ h1:hover:after {
  * Navbar
  */
 .bg-dark{
-  background-color: #212529!important;
+  background-color: #222!important;
 }
 
 nav a.navbar-brand{
