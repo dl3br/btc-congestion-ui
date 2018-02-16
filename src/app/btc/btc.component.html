@@ -23,45 +23,76 @@
   <!-- </div> -->
   <!-- </div> -->
 
+
+
+  <div class="row pretable">
+    <div class="col-8 block_info">
+      <span *ngIf="lastUpdatedCounter <= maxTimeout">
+        <a href="https://tradeblock.com/bitcoin/block/{{lastBlock.blockHash}}" target="_blank">
+          Last block {{lastBlock.minutes}} min ago
+        </a>
+        (updated {{lastUpdatedCounter}}s ago)
+      </span>
+      <span *ngIf="lastUpdatedCounter > maxTimeout">
+        Disconnected! Please, reload page manually!
+      </span>
+    </div>
+    <div class="col-4 advanced_mode">
+      <input (change)="toggleAdvanced()" type="checkbox" id="advancedMode" [checked]="advanced">
+      <label for="advancedMode">advanced</label>
+    </div>
+  </div>
+
+
   <div class="table-responsive-md ">
     <table class="table table-hover table-dark" align="center">
-      <thead>
+
+      <thead *ngIf="advanced">
+
         <tr>
-          <th colspan="1" *ngIf="advanced" >
-            <input (change)="toggleAdvanced()" type="checkbox" checked> advanced
-          </th>
-          <th colspan="1" *ngIf="!advanced" >
-            <input (change)="toggleAdvanced()" type="checkbox"> advanced
-          </th>
-          <th colspan="2" *ngIf="lastUpdatedCounter <= maxTimeout">
-            <a href="https://tradeblock.com/bitcoin/block/{{lastBlock.blockHash}}" target="_blank">Last block {{lastBlock.minutes}} min ago,</a> updated {{lastUpdatedCounter}} s ago
-          </th>
-          <th colspan="2" *ngIf="lastUpdatedCounter > maxTimeout">
-            Disconnected! Please, reload page manually!
-          </th>
-          <th colspan="4" *ngIf="lastUpdatedCounter === undefined"></th>
+          <th colspan="3"></th>
           <th colspan="4 ">1 input and 2 outputs transaction <br/></th>
         </tr>
         <tr>
-          <th colspan="1" *ngIf="advanced"> Confirms in <br/></th>
-          <th colspan="1" *ngIf="advanced"> Mempool position <br/></th>
-          <th colspan="2" *ngIf="!advanced"> est. Waiting time <br/></th>
+          <th>Confirms in</th>
+          <th>Mempool pos.</th>
           <th>Fee rate</th>
-          <!-- <th>Savings</th> -->
           <th colspan="2 ">Non-segwit</th>
           <th colspan="2 ">Segwit</th>
         </tr>
         <tr>
-          <th> {{ advanced ? "block" : "minutes" }} </th>
-          <th> {{ advanced ? "MvB" : "probability" }}</th>
-          <th>sat / vB</th>
-          <!-- <th>sat / vB</th> -->
+          <th>block</th>
+          <th>MvB</th>
+          <th>sat/vB</th>
           <th>sat</th>
           <th>usd</th>
           <th>sat</th>
           <th>usd</th>
         </tr>
       </thead>
+
+      <thead *ngIf="!advanced">
+        <tr>
+          <th colspan="3"></th>
+          <th colspan="4">1 input and 2 outputs transaction <br/></th>
+        </tr>
+        <tr>
+          <th colspan="2">Waiting time</th>
+          <th>Fee rate</th>
+          <th colspan="2 ">Non-segwit</th>
+          <th colspan="2 ">Segwit</th>
+        </tr>
+        <tr>
+          <th>minutes</th>
+          <th>proba</th>
+          <th>sat/vB</th>
+          <th>sat</th>
+          <th>usd</th>
+          <th>sat</th>
+          <th>usd</th>
+        </tr>
+      </thead>
+
       <tbody>
         <tr *ngFor="let minDiff of minDiffs" class="{{minDiff.score> 0.7 ? 'cool' : 'notcool'}}"  fon>
           <td>{{ translate(minDiff.targetBlock).time }}</td>

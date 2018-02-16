@@ -1,14 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "~bootstrap/dist/css/bootstrap.min.css";
-@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+@import url('https://fonts.googleapis.com/css?family=PT+Mono');
 
 body {
   font-size: 135%;
   background-color: #111;
   color: white;
-  font-family: "Inconsolata", monospace;
+  font-family: "PT Mono", monospace;
 }
+
+/*
+ * Navbar
+ */
+
+
+/*
+ * Texts
+ */
 
 h1 {
   font-weight: bold;
@@ -31,11 +40,50 @@ h1:hover:after {
   margin-top: 1.2em;
   text-align: center;
 }
-
-pre {
-  color: green;
+/*
+ * Navbar
+ */
+.bg-dark{
+  background-color: #212529!important;
 }
 
+nav a.navbar-brand{
+  font-weight: bold;
+}
+
+nav a.navbar-brand span.light{
+  color: #b3b3b3;
+}
+
+.nav-link a{
+ color: #b3b3b3;
+}
+
+li.nav-link.active a{
+  color: white;
+}
+
+/*
+ * Pretable
+ */
+.pretable{
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0.6em;
+}
+
+.pretable .block_info{
+  text-align: left;
+}
+
+.pretable .advanced_mode{
+  text-align: right;
+}
+
+/*
+ * Table
+ */
 .table {
   width: 80%;
   background-color: #222;
@@ -68,6 +116,9 @@ pre {
   font-size: 0.8em;
 }
 
+table thead tr{
+  font-size: 0.9em;
+}
 
 table tbody tr.cool {
   color: white;
@@ -84,4 +135,10 @@ video {
   height: auto;
   margin-top: 0.7em;
   margin-bottom: 1em;
+}
+
+pre {
+  color: #dedede;
+  background-color: #232323;
+  font-size: 0.8em;
 }
