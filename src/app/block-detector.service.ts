@@ -7,7 +7,7 @@ import { Http } from '@angular/http'
 import { merge } from 'rxjs/observable/merge'
 import { config } from '../../config'
 
-const url = 'http://' + config.url + '/api/v1/btc/minsfromlastblock'
+const url = 'http://' config.url + '/api/v1/btc/minsfromlastblock'
 
 @Injectable()
 export class BlockDetectorService {
