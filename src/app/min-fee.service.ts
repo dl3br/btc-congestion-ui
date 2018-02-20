@@ -6,7 +6,8 @@ import { Http } from '@angular/http'
 import 'rxjs/add/operator/delayWhen'
 import { Client } from 'thruway.js'
 import { WampConnectorService } from './wamp-connector.service'
-const url = 'http://159.100.247.219:3000/btc/deals'
+import { config } from '../../config'
+const url = 'http://' + config.url + '/api/v1/btc/deals'
 
 @Injectable()
 export class MinFeeService {
@@ -15,7 +16,7 @@ export class MinFeeService {
 
   minDiff$: Observable<MinDiff[]> = merge(
     this.http.get(url).map(x => x.json()),
-    this.wamp.getWamp().topic('com.fee.deals').flatMap(x => x.args)
+    this.wamp.getWamp().topic('com.fee.v1.btc.deals').flatMap(x => x.args)
   ).share()
 
   lastUpdatedCounter$ = this.minDiff$

@@ -6,18 +6,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./api.component.css']
 })
 export class ApiComponent implements OnInit {
-  code = `
+  url = 'fee.truelevel.io'
+  // url = '159.100.247.219'
+  codeTS = `
 import { Client } from 'thruway.js'
-const wamp = new Client('ws://159.100.247.219:8080/ws', 'realm1')
-const fees$: Observable &ltBestDeals&gt =
-  wamp.topic('com.fee.bestdeals').flatMap(x => x.args)
+const wamp = new Client('ws://${this.url}:8080/ws', 'realm1')
+const fees$: Observable &ltDeals&gt =
+  wamp.topic('com.fee.deals').flatMap(x => x.args)
+
+// then subscribe
+fees$.subscribe(console.log, console.error) // these are the callbacks
+
+interface Deals {
+  targetBlock: number
+  feeRate: number
+  date: string
+  score: number
+}[]
+`
+  codeJS = `
+const Thruway = require('thruway.js')
+const wamp = new Thruway.Client('ws://${this.url}:8080/ws', 'realm1')
+const fees$ =
+  wamp.topic('com.fee.deals').flatMap(x => x.args)
 
 // then subscribe
 fees$.subscribe(console.log, console.error)
 `
 
-  objectType = `
-interface BestDeals {
+  objectType = `{
   targetBlock: number
   feeRate: number
   date: string

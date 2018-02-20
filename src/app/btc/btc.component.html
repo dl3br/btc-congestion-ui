@@ -29,9 +29,9 @@
     <div class="col-8 block_info">
       <span *ngIf="lastUpdatedCounter <= maxTimeout">
         <a href="https://tradeblock.com/bitcoin/block/{{lastBlock.blockHash}}" target="_blank">
-          Last block {{lastBlock.minutes}} min ago
+          Last block {{lastBlock.minutes}} min ago,
         </a>
-        (updated {{lastUpdatedCounter}}s ago)
+        table last update {{lastUpdatedCounter}}s ago
       </span>
       <span *ngIf="lastUpdatedCounter > maxTimeout">
         Disconnected! Please, reload page manually!

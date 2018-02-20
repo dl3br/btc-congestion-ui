@@ -5,7 +5,9 @@ import { timer } from 'rxjs/observable/timer'
 import { WampConnectorService } from './wamp-connector.service'
 import { Http } from '@angular/http'
 import { merge } from 'rxjs/observable/merge'
-const url = 'http://159.100.247.219:3000/btc/minutes'
+import { config } from '../../config'
+
+const url = 'http://' + config.url + '/api/v1/btc/minsfromlastblock'
 
 @Injectable()
 export class BlockDetectorService {
@@ -16,7 +18,7 @@ export class BlockDetectorService {
     merge(
       this.http.get(url).map(x => x.json()),
       this.wamp.getWamp()
-        .topic('com.fee.minsfromlastblock')
+        .topic('com.fee.v1.btc.minsfromlastblock')
         .flatMap(x => x.args),
   )
 }

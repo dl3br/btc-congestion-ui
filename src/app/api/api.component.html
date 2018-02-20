@@ -1,14 +1,27 @@
 <div class="container">
-  <h3>returned json on wamp and rest</h3>
+  <h1><span class="title">Bitcoin Congestion Manager</span></h1><br/>
+
+  <h2>Endpoints</h2>
+  <div>We provide WAMP (websockets) and REST (http) endpoints. Please prefer WAMP over REST if you want to get live fee rates.</div><br/>
+  <h3>Response</h3>
+  <div> A JSON object of the following type is returned from both the WAMP and the REST endpoints: </div>
   <pre><code [innerHTML]="objectType"></code></pre>
-  <h3>wamp endpoint</h3>
+
+  <h3>Connecting to the WAMP endpoint</h3>
+  <div>Below we provide a minimal examples on how to connect to the WAMP endpoint using Typescript and Javascript, in conjunction with the thruway.js npm package</div> <br/>
+  <h4> Typescript example </h4>
   <pre>
-    <code [innerHTML]="code"></code>
+    <code [innerHTML]="codeTS"></code>
+  </pre>
+
+  <h4> Javascript example </h4>
+  <pre>
+    <code [innerHTML]="codeJS"></code>
   </pre>
   <div>
-    <h3>rest endpoint</h3>
-    <a href="http://159.100.247.219:3000/btc/deals">
-      http://159.100.247.219:3000/btc/deals
+    <h3>REST endpoint</h3>
+    <a href="http://{{url}}/api/v1/btc/deals">
+      http://{{url}}/api/v1/btc/deals
     </a>
   </div>
 </div>
