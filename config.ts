@@ -1,4 +1,4 @@
-const url = '185.19.28.13'
+const url = '185.19.28.237'
 
 export const config = {
   url,

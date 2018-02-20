@@ -27,7 +27,7 @@
 
   <div class="row pretable">
     <div class="col-8 block_info">
-      <span *ngIf="lastUpdatedCounter <= maxTimeout">
+      <span *ngIf="lastUpdatedCounter <= maxTimeout && lastBlock !== undefined">
         <a href="https://tradeblock.com/bitcoin/block/{{lastBlock.blockHash}}" target="_blank">
           Last block {{lastBlock.minutes}} min ago,
         </a>
