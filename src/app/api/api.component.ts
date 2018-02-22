@@ -12,7 +12,7 @@ export class ApiComponent implements OnInit {
 import { Client } from 'thruway.js'
 const wamp = new Client('ws://${this.url}:8080/ws', 'realm1')
 const fees$: Observable &ltDeals&gt =
-  wamp.topic('com.fee.deals').flatMap(x => x.args)
+  wamp.topic('com.fee.v1.btc.deals').flatMap(x => x.args)
 
 // then subscribe
 fees$.subscribe(console.log, console.error) // these are the callbacks
@@ -28,7 +28,7 @@ interface Deals {
 const Thruway = require('thruway.js')
 const wamp = new Thruway.Client('ws://${this.url}:8080/ws', 'realm1')
 const fees$ =
-  wamp.topic('com.fee.deals').flatMap(x => x.args)
+  wamp.topic('com.fee.v1.btc.deals').flatMap(x => x.args)
 
 // then subscribe
 fees$.subscribe(console.log, console.error)
