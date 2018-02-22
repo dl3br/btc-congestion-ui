@@ -1,4 +1,4 @@
-const url = '185.19.28.237'
+const url = window.location.host
 
 export const config = {
   url,
