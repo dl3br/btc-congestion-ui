@@ -100,12 +100,12 @@
           <td>{{ round(minDiff.feeRate, 3) }}</td>
           <!-- <td>{{ -round(minDiff.cumDiff, 3) }}</td> -->
           <td>{{ round(minDiff.feeRate * twoInOneOutVSize.nonsegwit, 0) }} </td>
-          <td>${{round(minDiff.feeRate * twoInOneOutVSize.nonsegwit * btcusd * 1e-8, 2)}}</td>
+          <td>${{ round(minDiff.feeRate * twoInOneOutVSize.nonsegwit * btcusd * 1e-8, 2) }}</td>
           <td>{{ round(minDiff.feeRate * twoInOneOutVSize.segwit, 0) }} </td>
-          <td>${{round(minDiff.feeRate * twoInOneOutVSize.segwit * btcusd * 1e-8, 2)}}</td>
+          <td>${{ round(minDiff.feeRate * twoInOneOutVSize.segwit * btcusd * 1e-8, 2) }}</td>
         </tr>
       </tbody>
-      <caption>Please broadcast only RBF transactions for waiting time greater than 20 min. Mempool can change dramatically fast. vB represents virtual bytes. Non-segwit transaction with 1 input and 2 outpus has 226 vB and a segwit transaction has 165 vB. A block max capacity is 1MvB.</caption>
+      <caption>Our suggested fee is highlighted above. Please broadcast only RBF transactions for waiting time (block) greater than 30 min (3 blocks). vB represents virtual bytes. Non-segwit transaction with 1 input and 2 outpus has 226 vB and a segwit transaction has 165 vB. A block max capacity is 1MvB.</caption>
     </table>
   </div>
 </div>

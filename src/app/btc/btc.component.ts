@@ -34,7 +34,7 @@ export class BtcComponent implements OnInit, OnDestroy {
     segwit: 165,
     nonsegwit: 226
   }
-  maxTimeout = 15 // s
+  maxTimeout = 25 // s
   constructor(
     private _minFee: MinFeeService,
     private _btcusd: BtcUsdService,
