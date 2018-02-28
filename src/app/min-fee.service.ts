@@ -7,7 +7,7 @@ import 'rxjs/add/operator/delayWhen'
 import { Client } from 'thruway.js'
 import { WampConnectorService } from './wamp-connector.service'
 import { config } from '../../config'
-const url = 'http://' + config.url + '/api/v1/btc/deals'
+const url = 'https://' + config.url + '/api/v1/btc/deals'
 
 @Injectable()
 export class MinFeeService {
