@@ -3,7 +3,7 @@ const url = window.location.host
 export const config = {
   url,
   wamp: {
-    url: `ws://${url}:80/ws`,
+    url: `https://${url}/ws`,
     realm: 'realm1',
   },
 }
