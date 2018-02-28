@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./api.component.css']
 })
 export class ApiComponent implements OnInit {
-  url = 'fee.truelevel.io'
+  url = 'fees.truelevel.io'
   // url = '159.100.247.219'
   codeTS = `
 import { Client } from 'thruway.js'
