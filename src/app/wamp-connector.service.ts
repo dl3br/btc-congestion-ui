@@ -8,7 +8,6 @@ export class WampConnectorService {
 
   getWamp = () =>
     this.wamp === undefined
-      ? this.wamp = new Client(config.wamp.url, config.wamp.realm, { role: config.wamp.user }
-      )
+      ? this.wamp = new Client(config.wamp.url, config.wamp.realm)
       : this.wamp
 }
