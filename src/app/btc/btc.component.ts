@@ -64,7 +64,10 @@ export class BtcComponent implements OnInit, OnDestroy {
       )
     this.lastUpdatedCounterSub = this._minFee.lastUpdatedCounter$
       .subscribe(
-      xlastUpdatedCounter => { this.lastUpdatedCounter = xlastUpdatedCounter },
+      xlastUpdatedCounter => {
+        this.lastUpdatedCounter = xlastUpdatedCounter
+        window.location.reload()
+      },
       console.error
       )
     this.btcusdSub = this._btcusd.btcusd$
