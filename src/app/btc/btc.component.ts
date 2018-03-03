@@ -66,7 +66,7 @@ export class BtcComponent implements OnInit, OnDestroy {
       .subscribe(
       xlastUpdatedCounter => {
         this.lastUpdatedCounter = xlastUpdatedCounter
-        window.location.reload()
+        if (xlastUpdatedCounter > 30) { window.location.reload() }
       },
       console.error
       )
